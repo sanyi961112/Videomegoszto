@@ -12,7 +12,7 @@ git commit -m "ide ird mit csinaltal vagy mi kell meg bele"
 git push origin main
 
 
-(ha már le szedted és updatelnéd
+(ha már leszedted és updatelnéd
 
 git pull
 )
