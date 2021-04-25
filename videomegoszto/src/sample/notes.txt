@@ -1,0 +1,84 @@
+adatbéalapú projekt
+
+amik kellenek:
+-1.8 jdk from oracle website,
+-oracle sql-developer from website,
+-jdbc-t fogunk használni,
+-javafx -szel,
+-oracle-12c kell docker alatt fusson,
+-intellij 2021 -> egyetem adott licenszt, frissítsd le legújabbra
+-oracle_instant_client64 -> innen kell importálni majd az ojdbc8.jar-t
+javafx projekt, 1.8 jdk-val, projekt neve: projekt
+
+ojdbc8.jar kell a project structure alatt a modules, ott -> Dependencies fül -> plusz gomb majd ott a JARs or Directories... -> válaszd ki a ojdbc8.jar file-t ami egy dependency lesz neki (pipáld is be a kockát amikor importoltad, apply, és ok)
+
+amikor scene buildert használsz a sample.fxml-en akkor -> feldob egy linket hogy töltsd le, amíg linket dob fel addig hadd telepítsen fel mindent és megjelenik a kezelőfelület
+
+(megjegyzés: scene builderben ne másolj jobb egér gombbal mert akkor eltűnik a jobb klikk menü)
+
+Táblák az sql-developerbe: (copy paste a kezelőfelületre, de hozz létre egy oracle-project connectiont, meg most sanyi/oracle a login/password)
+
+CREATE TABLE FELHASZNALOK (
+   fh_nev VARCHAR2(30) NOT NULL,
+   jelszo VARCHAR2(60) NOT NULL,
+   teljes_nev VARCHAR2(64) NOT NULL,
+	email VARCHAR2(30) NOT NULL,
+	PRIMARY KEY(fh_nev)
+ );
+
+ CREATE TABLE video (
+	video_id VARCHAR(10) NOT NULL,
+	cim VARCHAR2(128) NOT NULL,
+	leiras VARCHAR2(500),
+	feltoltes_datuma DATE NOT NULL,
+	feltolto VARCHAR2(30) NOT NULL,
+	forras_fajl VARCHAR(80) NOT NULL,
+	megtekintes NUMBER,
+	PRIMARY KEY(video_id),
+	FOREIGN KEY(feltolto) REFERENCES felhasznalok(fh_nev)
+ );
+
+ CREATE TABLE kommentek (
+	video_id VARCHAR(10) NOT NULL,
+	fh_nev VARCHAR2(30) NOT NULL,
+	idopont TIMESTAMP(2),
+	komment VARCHAR2(200) NOT NULL,
+
+	CONSTRAINT komment_prim
+	PRIMARY KEY(video_id, fh_nev, idopont),
+
+	CONSTRAINT komment_foreign1
+	FOREIGN KEY(video_id) REFERENCES video(video_id),
+
+	CONSTRAINT komment_foreign2
+	FOREIGN KEY(fh_nev) REFERENCES felhasznalok(fh_nev)
+ );
+
+ CREATE TABLE kategoriak (
+	kategoria_nev VARCHAR(30),
+	PRIMARY KEY(kategoria_nev)
+	);
+
+ CREATE TABLE cimkek (
+	video_id VARCHAR(10),
+	cimke_nev VARCHAR(30),
+	PRIMARY KEY(video_id, cimke_nev),
+	FOREIGN KEY(video_id) REFERENCES video(video_id)
+ );
+
+ CREATE TABLE kedvelesek(
+	video_id VARCHAR(10),
+	fh_nev VARCHAR2(30),
+
+	CONSTRAINT kedvelesek_prim
+	PRIMARY KEY (video_id, fh_nev),
+
+	CONSTRAINT kedveles_foreign1
+	FOREIGN KEY(video_id) REFERENCES video(video_id),
+
+	CONSTRAINT kedvelesek_foreign2
+	FOREIGN KEY(fh_nev) REFERENCES felhasznalok(fh_nev)
+ );
+
+//end of tables
+
