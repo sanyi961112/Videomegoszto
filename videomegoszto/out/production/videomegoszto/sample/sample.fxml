@@ -77,17 +77,6 @@
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Profil">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="76.0" layoutY="51.0" prefHeight="17.0" prefWidth="234.0" />
-                  <Label layoutX="56.0" layoutY="34.0" text="Felhasználó:" />
-                  <Button layoutX="430.0" layoutY="30.0" mnemonicParsing="false" text="Profilom törlése..." />
-                  <Label layoutX="180.0" layoutY="34.0" text="fh_név placeholder" />
-               </children></AnchorPane>
-      </content>
-    </Tab>
       <Tab text="Keresés">
           <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="627.0">
