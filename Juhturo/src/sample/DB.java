@@ -31,7 +31,7 @@ public class DB {
         try{
             ods = new OracleDataSource();
             Class.forName("oracle.jdbc.OracleDriver");
-            ods.setURL("jdbc:oracle:thin@localhost:1521:xe");
+            ods.setURL("jdbc:oracle:thin:@localhost:1521:xe");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -44,12 +44,13 @@ public class DB {
         try{
             Connection conn = ods.getConnection(user, pass);
             statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "select fh_nev, jelszo, teljes_nev, email from felhasznalok";
+            String sql = "select fh_nev, jelszo, teljes_nev, email from FELHASZNALOK";
             resultSet = statement.executeQuery( sql );
             while (resultSet.next()){
                 Felhasznalok f = new Felhasznalok(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
                 felhasznalok.add(f);
                 System.out.println(f);
+                
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,8 +68,8 @@ public class DB {
             //insert
             Connection conn = ods.getConnection(user, pass);
             statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "INSERT INTO FELHASZNALOK (FH_NEV, JELSZO, TELJES_NEV, EMAIL) values ("+f.getFh_nev()+", '"+hashedJelszo+"', '"+f.getTeljes_nev()+"', "+f.getEmail()+")";
-            System.out.println(sql);
+            String sql = "INSERT INTO FELHASZNALOK (FH_NEV, JELSZO, TELJES_NEV, EMAIL) values ('"+f.getFh_nev()+"', '"+hashedJelszo+"', '"+f.getTeljes_nev()+"', '"+f.getEmail()+"')";
+            System.out.println( sql );
             resultSet = statement.executeQuery( sql );
         } catch ( Exception ex){
             ex.printStackTrace();

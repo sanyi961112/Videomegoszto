@@ -31,21 +31,21 @@ public class Controller {
         TableColumn fh_nevCollum = new TableColumn("fh_nev");
         fh_nevCollum.setCellFactory(new PropertyValueFactory<>("fh_nev"));
         TableColumn jelszoCollum = new TableColumn("jelszo");
-        fh_nevCollum.setCellFactory(new PropertyValueFactory<>("jelszo"));
+        jelszoCollum.setCellFactory(new PropertyValueFactory<>("jelszo"));
         TableColumn teljes_nevCollum = new TableColumn("teljes_nev");
-        fh_nevCollum.setCellFactory(new PropertyValueFactory<>("teljes_nev"));
+        teljes_nevCollum.setCellFactory(new PropertyValueFactory<>("teljes_nev"));
         TableColumn emailCollum = new TableColumn("email");
-        fh_nevCollum.setCellFactory(new PropertyValueFactory<>("email"));
+        emailCollum.setCellFactory(new PropertyValueFactory<>("email"));
         tv1.getColumns().addAll(fh_nevCollum, jelszoCollum, teljes_nevCollum, emailCollum);
         System.out.println("asd");
     }
 
     public void pressRead(ActionEvent e) {
         System.out.println("Reading all data...");
-        ArrayList<Felhasznalok> fh_adat = db.read();
+        ArrayList<Felhasznalok> felhasznalok = db.read();
         tv1.getItems().clear();
-        for (Felhasznalok felhasznalok : fh_adat){
-            tv1.getItems().add(felhasznalok);
+        for (Felhasznalok employee : felhasznalok){
+            tv1.getItems().add(employee);
         }
     }
     public void pressReg(ActionEvent e) {

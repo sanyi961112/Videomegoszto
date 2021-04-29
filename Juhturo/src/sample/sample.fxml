@@ -83,7 +83,7 @@
                     <children>
                         <Label layoutX="76.0" layoutY="51.0" prefHeight="17.0" prefWidth="234.0" />
                         <Label layoutX="56.0" layoutY="34.0" text="Felhasználó:" />
-                        <Button layoutX="430.0" layoutY="30.0" mnemonicParsing="false" text="Profilom törlése..." />
+                        <Button layoutX="430.0" layoutY="30.0" mnemonicParsing="false" text="Töröl" />
                         <Label layoutX="180.0" layoutY="34.0" text="fh_név placeholder" />
                     </children></AnchorPane>
             </content>
