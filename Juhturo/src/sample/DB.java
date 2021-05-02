@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class DB {
+public class DB extends Main{
 
     private ResultSet resultSet;
     private Statement statement;
@@ -44,13 +44,12 @@ public class DB {
         try{
             Connection conn = ods.getConnection(user, pass);
             statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "select fh_nev, jelszo, teljes_nev, email from FELHASZNALOK";
+            String sql = "select fh_nev, jelszo, teljes_nev, email from felhasznalok";
             resultSet = statement.executeQuery( sql );
             while (resultSet.next()){
                 Felhasznalok f = new Felhasznalok(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
                 felhasznalok.add(f);
-                System.out.println(f);
-                
+                System.out.println(f.getFh_nev()+" - "+f.getJelszo());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +68,7 @@ public class DB {
             Connection conn = ods.getConnection(user, pass);
             statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "INSERT INTO FELHASZNALOK (FH_NEV, JELSZO, TELJES_NEV, EMAIL) values ('"+f.getFh_nev()+"', '"+hashedJelszo+"', '"+f.getTeljes_nev()+"', '"+f.getEmail()+"')";
-            System.out.println( sql );
+            System.out.println(sql);
             resultSet = statement.executeQuery( sql );
         } catch ( Exception ex){
             ex.printStackTrace();
