@@ -58,7 +58,7 @@ public class Controller extends Main{
      TableColumn emailCollum = new TableColumn("email");
      emailCollum.setCellFactory(new PropertyValueFactory<>("email"));
      //tv1.getColumns().addAll(fh_nevCollum, jelszoCollum, teljes_nevCollum, emailCollum);
-     System.out.println("asd");
+//     System.out.println("asd");
  }
 
     public void pressRead(ActionEvent e) {

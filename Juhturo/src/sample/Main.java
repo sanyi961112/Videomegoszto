@@ -16,7 +16,7 @@ public class Main extends Application {
         if(isLoggedIn == false) {
             Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
             primaryStage.setTitle("Juhturo 0.1");
-            primaryStage.setScene(new Scene(root, 900, 600));
+            primaryStage.setScene(new Scene(root, 900, 500));
             primaryStage.show();
         }
 
