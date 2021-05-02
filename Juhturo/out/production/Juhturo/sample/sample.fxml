@@ -24,9 +24,9 @@
                      <font>
                         <Font size="14.0" />
                      </font></Button>
-                  <Label layoutX="499.0" layoutY="49.0" prefHeight="28.0" prefWidth="68.0" scaleX="2.0" scaleY="2.0" text="Bejelentkezés" />
-                  <Label layoutX="75.0" layoutY="406.0" text="Üzenet:" />
-                  <Label fx:id="nope" layoutX="128.0" layoutY="406.0" prefHeight="17.0" prefWidth="245.0" text="Blank" />
+                  <Label layoutX="499.0" layoutY="49.0" prefHeight="28.0" prefWidth="86.0" scaleX="2.0" scaleY="2.0" text="Bejelentkezés" />
+                  <Label layoutX="92.0" layoutY="288.0" text="Üzenet:" />
+                  <Label fx:id="nope" layoutX="145.0" layoutY="288.0" prefHeight="17.0" prefWidth="245.0" text="Blank" />
                   <GridPane layoutX="56.0" layoutY="115.0" prefHeight="142.0" prefWidth="780.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="531.0" minWidth="10.0" prefWidth="198.0" />
