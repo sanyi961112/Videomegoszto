@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class Controller extends Main{
@@ -76,12 +79,18 @@ public class Controller extends Main{
                 Remail.getText());
         db.insert(felhasznalok);
     }
-    public void pressLog(ActionEvent e) throws IOException {
+    public void pressLog(ActionEvent e) throws IOException, NoSuchAlgorithmException {
         System.out.println("Belépés...");
 
         ArrayList<Felhasznalok> felhasznalok = db.read();
+
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] encodedHash = digest.digest(Bjelszo.getText().getBytes(StandardCharsets.UTF_8));
+        String hashedJelszo = new String(encodedHash);
+
         for (Felhasznalok employee : felhasznalok) {
-            //if (Bfelhasznalo.getText() == employee.getFh_nev() && Bjelszo.getText() == employee.getJelszo()){
+
+            if (Bfelhasznalo.getText().equals(employee.getFh_nev()) && hashedJelszo.equals(employee.getJelszo())){
                 isLoggedIn=true;
                 System.out.println(isLoggedIn);
                 Parent asd = FXMLLoader.load(getClass().getResource("kezdolap.fxml"));
@@ -90,21 +99,18 @@ public class Controller extends Main{
                 app_stage.setScene(asdscene);
                 app_stage.show();
                 break;
-            //}
-        // else
-        // {
-        //     nope.textProperty().set("Belépési adatok nem megfelelőek");
-        //     System.out.println(employee.getFh_nev()+"-"+Bfelhasznalo.getText());
-        //     if (employee.getFh_nev().toString()==Bfelhasznalo.getText().toString()){
-        //         nope.textProperty().set("Név megegyezik");
-        //         System.out.println("Név megegyezik");
-        //     }
+            }
+         else
+         {
+             nope.textProperty().set("Belépési adatok nem megfelelőek");    //Blank Label
+             System.out.println(employee.getFh_nev()+"-"+Bfelhasznalo.getText());
+             System.out.println(hashedJelszo+"----------"+employee.getJelszo());
 
-        //  }
+             }
+
+          }
         }
 
-
-    }
     public void pressLogout(ActionEvent e) throws IOException {
         System.out.println("Kilépés...");
         isLoggedIn=false;
@@ -116,5 +122,4 @@ public class Controller extends Main{
         app_stage.show();
 
     }
-
 }
