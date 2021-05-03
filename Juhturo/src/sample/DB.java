@@ -97,7 +97,7 @@ public class DB extends Main{
         try{
             Connection conn = ods.getConnection(user, pass);
             statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "delete from felhasznalok where fh_nev = " + f.getFh_nev();
+            String sql = "delete from felhasznalok where fh_nev = '" + f.getFh_nev()+"'";
             resultSet = statement.executeQuery( sql );
         } catch ( Exception ex){
             ex.printStackTrace();

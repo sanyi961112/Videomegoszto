@@ -40,11 +40,14 @@ public class Controller extends Main{
     private TextField Bjelszo;
     @FXML
     private Label nope;
+    @FXML
+    public Label label_username;
 
+    protected DB db;
+    public String nev=null;
     private Stage stage;
     private Scene scene;
     private Parent root;
-    private DB db;
 
  @FXML
  public void initialize(){
@@ -92,12 +95,23 @@ public class Controller extends Main{
 
             if (Bfelhasznalo.getText().equals(employee.getFh_nev()) && hashedJelszo.equals(employee.getJelszo())){
                 isLoggedIn=true;
+                String username= Bfelhasznalo.getText();
+                FXMLLoader loader=new FXMLLoader((getClass().getResource("kezdolap.fxml")));
+                root = loader.load();
+
+                KezdolapController kezdolapController = loader.getController();
+                kezdolapController.display(username);
+                stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+                nev=employee.getFh_nev();
                 System.out.println(isLoggedIn);
-                Parent asd = FXMLLoader.load(getClass().getResource("kezdolap.fxml"));
-                Scene asdscene = new Scene(asd);
-                Stage app_stage =(Stage) ((Node) e.getSource()).getScene().getWindow();
-                app_stage.setScene(asdscene);
-                app_stage.show();
+
+
+                System.out.println(nev+" Itt a neved");
+                //label_username.setText(nev);
+
                 break;
             }
          else
@@ -111,15 +125,5 @@ public class Controller extends Main{
           }
         }
 
-    public void pressLogout(ActionEvent e) throws IOException {
-        System.out.println("Kilépés...");
-        isLoggedIn=false;
-        System.out.println(isLoggedIn);
-        Parent asd = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        Scene asdscene = new Scene(asd);
-        Stage app_stage =(Stage) ((Node) e.getSource()).getScene().getWindow();
-        app_stage.setScene(asdscene);
-        app_stage.show();
 
-    }
 }

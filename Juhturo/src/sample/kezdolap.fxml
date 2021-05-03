@@ -6,7 +6,7 @@
 <?import javafx.scene.media.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1024" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane prefHeight="768.0" prefWidth="1024" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.KezdolapController">
    <children>
       <Button layoutX="905.0" layoutY="26.0" mnemonicParsing="false" onAction="#pressLogout" text="Kijelentkezés">
          <font>
@@ -101,11 +101,11 @@
               <content>
                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                       <Button layoutX="787.0" layoutY="30.0" mnemonicParsing="false" text="Profilom törlése...">
+                       <Button layoutX="787.0" layoutY="30.0" mnemonicParsing="false" onAction="#pressDel" text="Profilom törlése...">
                            <font>
                               <Font size="14.0" />
                            </font></Button>
-                       <Label layoutX="176.0" layoutY="34.0" text="fh_nev">
+                       <Label fx:id="label_username1" layoutX="176.0" layoutY="34.0" text="fh_nev">
                            <font>
                               <Font size="14.0" />
                            </font></Label>

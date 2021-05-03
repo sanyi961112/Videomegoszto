@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     boolean isLoggedIn = false;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
