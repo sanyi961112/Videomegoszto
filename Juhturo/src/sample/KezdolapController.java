@@ -12,23 +12,32 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class KezdolapController extends Controller{
+public class KezdolapController extends Controller {
     @FXML
     Label label_username;
     @FXML
     Label label_username1;
 
     @FXML
-    public void initialize(){
+    Label filePath;
+
+
+    @FXML
+    public void initialize() {
 
         db = new DB();
         TableColumn fh_nevCollum = new TableColumn("fh_nev");
@@ -42,9 +51,42 @@ public class KezdolapController extends Controller{
         //tv1.getColumns().addAll(fh_nevCollum, jelszoCollum, teljes_nevCollum, emailCollum);
 //     System.out.println("asd");
     }
-    public void display(String username){
+
+    public void display(String username) {
         label_username.setText(username);
         label_username1.setText(username);
+    }
+
+    public void pressChoose(ActionEvent e) {
+        System.out.println("Fájl Kiválasztása...");
+        FileChooser fileChooser = new FileChooser();
+        File file;
+        Scanner fileIn;
+        int response;
+        JFileChooser chooser = new JFileChooser(".");
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        response = chooser.showOpenDialog(null);
+
+        if (response == JFileChooser.APPROVE_OPTION) {
+            file = chooser.getSelectedFile();
+
+            try {
+                fileIn = new Scanner(file);
+                if (file.isFile()) {
+                    while (fileIn.hasNextLine()) {
+                        String line = fileIn.nextLine();
+                        System.out.println(line);
+                    }
+                    //filePath.setText(file.getPath());
+                } else {
+                    System.out.println("Ez nem egy file");
+                }
+                fileIn.close();
+            } catch (FileNotFoundException f) {
+                f.printStackTrace();
+            }
+
+        }
     }
 
     public void pressLogout(ActionEvent e) throws IOException {

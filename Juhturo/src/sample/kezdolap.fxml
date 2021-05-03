@@ -94,6 +94,7 @@
                         <Label layoutX="626.0" layoutY="391.0" text="Kategória" />
                         <TextArea layoutX="628.0" layoutY="463.0" prefHeight="47.0" prefWidth="278.0" />
                         <ComboBox layoutX="628.0" layoutY="414.0" prefHeight="25.0" prefWidth="279.0" />
+                        <Button layoutX="819.0" layoutY="104.0" mnemonicParsing="false" onAction="#pressChoose" prefHeight="25.0" prefWidth="89.0" text="Fájl kiválaszt" />
                      </children></AnchorPane>
               </content>
           </Tab>

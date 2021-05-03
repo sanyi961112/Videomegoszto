@@ -4,16 +4,22 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Main extends Application {
     boolean isLoggedIn = false;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
         //alap bejelentkezes meg regisztracio scene
-        if(isLoggedIn == false) {
+        if (isLoggedIn == false) {
             Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
             primaryStage.setTitle("Juhturo 0.1");
             root.getStylesheets().add(getClass().getResource("./media/stylesheet.css").toExternalForm());
