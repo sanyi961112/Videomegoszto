@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -18,6 +17,7 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
             primaryStage.setTitle("Juhturo 0.1");
             primaryStage.setScene(new Scene(root, 900, 500));
+            root.getStylesheets().add(getClass().getResource("./media/stylesheet.css").toExternalForm());
             primaryStage.show();
         }
 
@@ -27,6 +27,7 @@ public class Main extends Application {
             Parent kezdolap = FXMLLoader.load(getClass().getResource("kezdolap.fxml"));
             primaryStage.setTitle("Juhturo 0.1");
             primaryStage.setScene(new Scene(kezdolap, 1024, 768));
+            kezdolap.getStylesheets().add("./media/stylesheet.css");
             primaryStage.show();
         }
 
