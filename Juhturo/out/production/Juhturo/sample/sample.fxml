@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="953.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="953.0" stylesheets="@media/stylesheet.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <tabs>
 <!--    <Tab text="Read all users(példa)">-->
 <!--      <content>-->
@@ -18,7 +18,7 @@
 <!--    </Tab>-->
     <Tab text="Bejelentkezés">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="948.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="948.0" stylesheets="@media/stylesheet.css">
                <children>
                   <Button layoutX="735.0" layoutY="281.0" mnemonicParsing="false" onAction="#pressLog" text="Bejelentkezés">
                      <font>
@@ -83,7 +83,6 @@
                      </font></Button>
                   <Label layoutX="499.0" layoutY="49.0" prefHeight="28.0" prefWidth="68.0" scaleX="2.0" scaleY="2.0" text="Regisztráció" />
                   <Label layoutX="76.0" layoutY="386.0" prefHeight="17.0" prefWidth="45.0" text="Üzenet:" />
-                  <ImageView fitHeight="57.0" fitWidth="200.0" layoutX="322.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="121.0" layoutY="386.0" prefHeight="17.0" prefWidth="167.0" text="" />
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="56.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>

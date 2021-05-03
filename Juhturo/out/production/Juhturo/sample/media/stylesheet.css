@@ -1,19 +1,23 @@
 .root{
     -fx-base: #333;
-    /*-fx-background: black;*/
+    -fx-background: #333;
 }
 .kezdolap{
     -fx-base: #333;
-    /*-fx-background: black;*/
+    -fx-background: #333;
 }
 .tab-pane{
     -fx-base: #333;
-    /*-fx-background: black;*/
+    -fx-background: #333;
 }
 .button{
-    -fx-background-color: #999 !important;
+    -fx-background-color: #222;
 }
 
 .toggle-button{
-    -fx-background-color: #333 !important;
+    -fx-background-color: #222;
+
+}
+#videobg{
+    -fx-background-color: #222;
 }

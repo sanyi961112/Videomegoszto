@@ -16,8 +16,8 @@ public class Main extends Application {
         if(isLoggedIn == false) {
             Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
             primaryStage.setTitle("Juhturo 0.1");
-            primaryStage.setScene(new Scene(root, 900, 500));
             root.getStylesheets().add(getClass().getResource("./media/stylesheet.css").toExternalForm());
+            primaryStage.setScene(new Scene(root, 900, 500));
             primaryStage.show();
         }
 
@@ -26,8 +26,8 @@ public class Main extends Application {
         else {
             Parent kezdolap = FXMLLoader.load(getClass().getResource("kezdolap.fxml"));
             primaryStage.setTitle("Juhturo 0.1");
+            kezdolap.getStylesheets().add(getClass().getResource("./media/stylesheet.css").toExternalForm());
             primaryStage.setScene(new Scene(kezdolap, 1024, 768));
-            kezdolap.getStylesheets().add("./media/stylesheet.css");
             primaryStage.show();
         }
 
