@@ -83,16 +83,31 @@ public class Controller extends Main{
                 Remail.getText());
         db.insert(felhasznalok);
     }
+
+
+    public static String bytesToHex(byte[] hash) {
+        StringBuilder hexString = new StringBuilder(2 * hash.length);
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
+
     public void pressLog(ActionEvent e) throws IOException, NoSuchAlgorithmException {
         System.out.println("Belépés...");
 
         ArrayList<Felhasznalok> felhasznalok = db.read();
-// MessageDigest md = MessageDigest.getInstance("SHA-256");
-//            byte[] encodedHash = md.digest(Bjelszo.getText().getBytes(StandardCharsets.UTF_8));
-//            String hashedJelszo = encodedHash.toString();
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] encodedHash = digest.digest(Bjelszo.getText().getBytes(StandardCharsets.UTF_8));
-        String hashedJelszo = new String(encodedHash);
+
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashed = md.digest(Bjelszo.getText().getBytes(StandardCharsets.UTF_8));
+        String hashedJelszo = bytesToHex(hashed);
+//        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+//        byte[] encodedHash = digest.digest(Bjelszo.getText().getBytes(StandardCharsets.UTF_8));
+//        String hashedJelszo = new String(encodedHash);
 
         for (Felhasznalok employee : felhasznalok) {
 
