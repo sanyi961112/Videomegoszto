@@ -105,4 +105,47 @@ public class DB extends Main{
         }
         return true;
     }
+    public boolean insertkat(Kategoriak f){
+        try{
+            //insert
+            Connection conn = ods.getConnection(user, pass);
+            statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "INSERT INTO KATEGORIAK (KATEGORIA_NEV ) values ('"+f.getKategoria_nev()+"')";
+            System.out.println(sql);
+            resultSet = statement.executeQuery( sql );
+        } catch ( Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    public ArrayList<Kategoriak> comboread(){
+        ArrayList<Kategoriak> kategoriaks = new ArrayList<Kategoriak>();
+        try{
+            Connection conn = ods.getConnection(user, pass);
+            statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "select KATEGORIA_NEV from KATEGORIAK";
+            resultSet = statement.executeQuery( sql );
+            while (resultSet.next()){
+                Kategoriak k = new Kategoriak(resultSet.getString(1));
+                kategoriaks.add(k);
+                System.out.println(k.getKategoria_nev());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return kategoriaks;
+    }
+    public boolean katdelete(Kategoriak k){
+        try{
+            Connection conn = ods.getConnection(user, pass);
+            statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "delete from KATEGORIAK where KATEGORIA_NEV = '" + k.getKategoria_nev()+"'";
+            resultSet = statement.executeQuery( sql );
+        } catch ( Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

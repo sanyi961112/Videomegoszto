@@ -99,6 +99,7 @@ public class Controller extends Main{
                 FXMLLoader loader=new FXMLLoader((getClass().getResource("kezdolap.fxml")));
                 root = loader.load();
 
+
                 KezdolapController kezdolapController = loader.getController();
                 kezdolapController.display(username);
                 stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -119,11 +120,7 @@ public class Controller extends Main{
              nope.textProperty().set("Belépési adatok nem megfelelőek");    //Blank Label
              System.out.println(employee.getFh_nev()+"-"+Bfelhasznalo.getText());
              System.out.println(hashedJelszo+"----------"+employee.getJelszo());
-
              }
-
           }
         }
-
-
 }

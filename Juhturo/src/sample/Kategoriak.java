@@ -10,5 +10,4 @@ public class Kategoriak {
     public String getKategoria_nev() {
         return kategoria_nev;
     }
-
 }

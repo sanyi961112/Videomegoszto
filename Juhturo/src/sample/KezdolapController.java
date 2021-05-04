@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -23,6 +20,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,8 +31,16 @@ public class KezdolapController extends Controller {
     Label label_username1;
 
     @FXML
-    Label filePath;
+    private TextField asd;
 
+    @FXML
+    private TextField katfield;
+    @FXML
+    private ListView<Blob> myListView;
+    @FXML
+    private ComboBox vidComboBox;
+    @FXML
+    private ComboBox vidComboBoxDel;
 
     @FXML
     public void initialize() {
@@ -67,6 +73,7 @@ public class KezdolapController extends Controller {
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         response = chooser.showOpenDialog(null);
 
+        String a = "asd";
         if (response == JFileChooser.APPROVE_OPTION) {
             file = chooser.getSelectedFile();
 
@@ -77,7 +84,12 @@ public class KezdolapController extends Controller {
                         String line = fileIn.nextLine();
                         System.out.println(line);
                     }
-                    //filePath.setText(file.getPath());
+                    System.out.println(file.getAbsolutePath());
+                    a = file.getAbsolutePath();
+                    System.out.println(a);
+                    asd.setText(a);
+
+
                 } else {
                     System.out.println("Ez nem egy file");
                 }
@@ -87,38 +99,74 @@ public class KezdolapController extends Controller {
             }
 
         }
+        asd.setText(a);
+    }
+
+    public void pressUpload(ActionEvent e) {
+        System.out.println("Fájl Feltöltése...");
+
     }
 
     public void pressLogout(ActionEvent e) throws IOException {
         System.out.println("Kilépés...");
-        isLoggedIn=false;
+        isLoggedIn = false;
         System.out.println(isLoggedIn);
         Parent asd = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene asdscene = new Scene(asd);
-        Stage app_stage =(Stage) ((Node) e.getSource()).getScene().getWindow();
+        Stage app_stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         app_stage.setScene(asdscene);
         app_stage.show();
 
     }
+
     public void pressDel(ActionEvent e) throws IOException {
         System.out.println("Deleting...");
         ArrayList<Felhasznalok> felhasznalok = db.read();
         for (Felhasznalok employee : felhasznalok) {
-            System.out.println(label_username.getText()+" cuccizé "+ employee.getFh_nev());
-            if(employee.getFh_nev().equals(label_username.getText()))
-            {
+            System.out.println(label_username.getText() + " cuccizé " + employee.getFh_nev());
+            if (employee.getFh_nev().equals(label_username.getText())) {
                 db.delete(employee);
                 break;
             }
         }
-        isLoggedIn=false;
+
+        isLoggedIn = false;
         System.out.println(isLoggedIn);
         Parent asd = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene asdscene = new Scene(asd);
-        Stage app_stage =(Stage) ((Node) e.getSource()).getScene().getWindow();
+        Stage app_stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         app_stage.setScene(asdscene);
         app_stage.show();
 
     }
 
+    public void presskathozaad(ActionEvent e) {
+
+        Kategoriak kategoriak = new Kategoriak(katfield.getText());
+        db.insertkat(kategoriak);
+        ArrayList<Kategoriak> kategoriaks = db.comboread();
+        vidComboBoxDel.getItems().clear();
+        vidComboBox.getItems().clear();
+        for (Kategoriak feltolt : kategoriaks) {
+            vidComboBox.getItems().add(feltolt.getKategoria_nev());
+            vidComboBoxDel.getItems().add(feltolt.getKategoria_nev());
+        }
+    }
+
+    public void kategDel(ActionEvent e) {
+
+        ArrayList<Kategoriak> kategoriaks = db.comboread();
+        for (Kategoriak feltolt : kategoriaks) {
+            if (feltolt.getKategoria_nev().equals(vidComboBoxDel.getValue()))
+            {
+                db.katdelete(feltolt);
+            }
+        }
+        vidComboBoxDel.getItems().clear();
+        vidComboBox.getItems().clear();
+        for (Kategoriak feltolt : kategoriaks) {
+            vidComboBox.getItems().add(feltolt.getKategoria_nev());
+            vidComboBoxDel.getItems().add(feltolt.getKategoria_nev());
+        }
+    }
 }
