@@ -20,7 +20,7 @@ Táblák az sql-developerbe: (copy paste a kezelőfelületre, de hozz létre egy
 
 CREATE TABLE FELHASZNALOK (
    fh_nev VARCHAR2(30) NOT NULL,
-   jelszo VARCHAR2(60) NOT NULL,
+   jelszo VARCHAR2(64) NOT NULL,
    teljes_nev VARCHAR2(64) NOT NULL,
 	email VARCHAR2(30) NOT NULL,
 	PRIMARY KEY(fh_nev)
