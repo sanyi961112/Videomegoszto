@@ -16,7 +16,8 @@ public class DB extends Main{
     private OracleDataSource ods;
     private String user = "geri";
     private String pass = "123456";
-
+    long time =System.currentTimeMillis();
+    java.sql.Date d =new java.sql.Date(time);
     public static Integer parseInt(String s) {
         Integer i = null;
         try{
@@ -141,6 +142,51 @@ public class DB extends Main{
             Connection conn = ods.getConnection(user, pass);
             statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "delete from KATEGORIAK where KATEGORIA_NEV = '" + k.getKategoria_nev()+"'";
+            resultSet = statement.executeQuery( sql );
+        } catch ( Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+ public boolean insertvideo(Video v){
+     try{
+         //insert
+         Connection conn = ods.getConnection(user, pass);
+         statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+         String sql = "INSERT INTO VIDEO (CIM, FELTOLTES_DATUMA, FORRAS_FAJL, LEIRAS, FELTOLTO, KATEGORIA) VALUES ('"+v.getCim()+"', TO_DATE('"+ d +" 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), '"+v.getForras_fajl()+"', '"+v.getLeiras()+"', '"+v.getFeltolto()+"', '"+v.getKategoria()+"')";
+         System.out.println(sql);
+         resultSet = statement.executeQuery( sql );
+     } catch ( Exception ex){
+         ex.printStackTrace();
+         return false;
+     }
+     return true;
+ }
+ public ArrayList<Video> videoread(){
+     ArrayList<Video> videos = new ArrayList<Video>();
+     try{
+         Connection conn = ods.getConnection(user, pass);
+         statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+         String sql = "select VIDEO_ID, CIM, LEIRAS, FELTOLTES_DATUMA, FELTOLTO, FORRAS_FAJL, KATEGORIA from VIDEO";
+         resultSet = statement.executeQuery( sql );
+         while (resultSet.next()){
+             Video v = new Video(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getDate(4),resultSet.getString(5),resultSet.getString(6),resultSet.getString(7));
+             videos.add(v);
+             System.out.println(v.getCim());
+         }
+     } catch (Exception e) {
+         e.printStackTrace();
+     }
+     return videos;
+ }
+    public boolean insertcimke(Cimkek c){
+        try{
+            //insert
+            Connection conn = ods.getConnection(user, pass);
+            statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "INSERT INTO CIMKEK (VIDEO_ID, CIMKE_NEV) VALUES ('"+c.getVideo_id().toString()+"', '"+c.getCimke_nev()+"')";
+            System.out.println(sql);
             resultSet = statement.executeQuery( sql );
         } catch ( Exception ex){
             ex.printStackTrace();

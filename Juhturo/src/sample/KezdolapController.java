@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import sun.rmi.runtime.NewThreadAction;
 
 import javax.swing.*;
 import java.io.File;
@@ -21,7 +22,10 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Blob;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class KezdolapController extends Controller {
@@ -29,7 +33,8 @@ public class KezdolapController extends Controller {
     Label label_username;
     @FXML
     Label label_username1;
-
+    @FXML
+    private TextArea cimke;
     @FXML
     private TextField asd;
 
@@ -41,9 +46,16 @@ public class KezdolapController extends Controller {
     private ComboBox vidComboBox;
     @FXML
     private ComboBox vidComboBoxDel;
+    @FXML
+    private TextField mycim;
+    @FXML
+    private TextArea myleiras;
 
+    long time =System.currentTimeMillis();
+    java.sql.Date d =new java.sql.Date(time);
     @FXML
     public void initialize() {
+
 
         db = new DB();
         TableColumn fh_nevCollum = new TableColumn("fh_nev");
@@ -54,11 +66,17 @@ public class KezdolapController extends Controller {
         teljes_nevCollum.setCellFactory(new PropertyValueFactory<>("teljes_nev"));
         TableColumn emailCollum = new TableColumn("email");
         emailCollum.setCellFactory(new PropertyValueFactory<>("email"));
+        ArrayList<Kategoriak> kategoriak = db.comboread();
+        for (Kategoriak feltolt : kategoriak) {
+            vidComboBox.getItems().add(feltolt.getKategoria_nev());
+            vidComboBoxDel.getItems().add(feltolt.getKategoria_nev());
+        }
         //tv1.getColumns().addAll(fh_nevCollum, jelszoCollum, teljes_nevCollum, emailCollum);
 //     System.out.println("asd");
     }
 
     public void display(String username) {
+
         label_username.setText(username);
         label_username1.setText(username);
     }
@@ -164,9 +182,44 @@ public class KezdolapController extends Controller {
         }
         vidComboBoxDel.getItems().clear();
         vidComboBox.getItems().clear();
-        for (Kategoriak feltolt : kategoriaks) {
+        ArrayList<Kategoriak> kategoriak = db.comboread();
+        for (Kategoriak feltolt : kategoriak) {
             vidComboBox.getItems().add(feltolt.getKategoria_nev());
             vidComboBoxDel.getItems().add(feltolt.getKategoria_nev());
         }
     }
+public void pressVideoUpload(ActionEvent e){
+    System.out.println("Video Feltöltése");
+    System.out.println(mycim.getText());
+    ArrayList<Video> videos = db.videoread();
+    Video video = new Video(null,
+            mycim.getText(),
+            myleiras.getText(),
+            null,
+            label_username.getText(),
+            asd.getText(),
+            vidComboBox.getValue().toString());
+    db.insertvideo(video);
+    System.out.println(mycim.getText()+" "+myleiras.getText());
+    Video video2=null;
+     for (Video video1: videos)
+     {
+         video2=video1;
+     }
+     int kiíras = 0;
+     if (video2.getVideo_id().equals(null))
+     {
+         kiíras=1;
+     }
+     else
+     {
+         kiíras=video2.getVideo_id()+1;
+     }
+        Cimkek cimkek = new Cimkek(
+                kiíras,
+                cimke.getText()
+        );
+        db.insertcimke(cimkek);
+
+}
 }

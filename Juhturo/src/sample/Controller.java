@@ -60,6 +60,7 @@ public class Controller extends Main{
      teljes_nevCollum.setCellFactory(new PropertyValueFactory<>("teljes_nev"));
      TableColumn emailCollum = new TableColumn("email");
      emailCollum.setCellFactory(new PropertyValueFactory<>("email"));
+
      //tv1.getColumns().addAll(fh_nevCollum, jelszoCollum, teljes_nevCollum, emailCollum);
 //     System.out.println("asd");
  }
@@ -98,7 +99,6 @@ public class Controller extends Main{
                 String username= Bfelhasznalo.getText();
                 FXMLLoader loader=new FXMLLoader((getClass().getResource("kezdolap.fxml")));
                 root = loader.load();
-
 
                 KezdolapController kezdolapController = loader.getController();
                 kezdolapController.display(username);

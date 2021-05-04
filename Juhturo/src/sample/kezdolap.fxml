@@ -81,19 +81,19 @@
                         </Label>
                         <Label layoutX="625.0" layoutY="80.0" text="Videófájl kiválasztása" />
                         <TextField fx:id="asd" layoutX="625.0" layoutY="104.0" prefHeight="25.0" prefWidth="172.0" />
-                        <TextField layoutX="625.0" layoutY="175.0" prefHeight="25.0" prefWidth="283.0" />
+                        <TextField fx:id="mycim" layoutX="625.0" layoutY="175.0" prefHeight="25.0" prefWidth="283.0" />
                         <Label layoutX="625.0" layoutY="150.0" prefHeight="17.0" prefWidth="134.0" text="Videó címe" />
                         <Label layoutX="626.0" layoutY="446.0" text="Címkék" />
-                        <TextArea layoutX="626.0" layoutY="244.0" prefHeight="140.0" prefWidth="283.0" />
-                        <Button layoutX="635.0" layoutY="539.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="266.0" text="Videó feltöltése">
+                        <TextArea fx:id="myleiras" layoutX="626.0" layoutY="244.0" prefHeight="140.0" prefWidth="283.0" />
+                        <Button layoutX="635.0" layoutY="539.0" mnemonicParsing="false" onAction="#pressVideoUpload" prefHeight="25.0" prefWidth="266.0" text="Videó feltöltése">
                            <font>
                               <Font size="14.0" />
                            </font></Button>
                         <Label layoutX="625.0" layoutY="218.0" prefHeight="17.0" prefWidth="85.0" text="Leírás" />
                         <Label layoutX="626.0" layoutY="391.0" text="Kategória" />
-                        <TextArea layoutX="628.0" layoutY="463.0" prefHeight="47.0" prefWidth="278.0" />
+                        <TextArea fx:id="cimke" layoutX="628.0" layoutY="463.0" prefHeight="47.0" prefWidth="278.0" />
                         <ComboBox fx:id="vidComboBox" layoutX="628.0" layoutY="414.0" prefHeight="25.0" prefWidth="279.0" />
-                         <ListView layoutX="75.0" layoutY="75.0" prefHeight="420.0" prefWidth="420.0" />
+                         <ListView layoutX="75.0" layoutY="75.0" prefHeight="519.0" prefWidth="424.0" />
                         <Button layoutX="819.0" layoutY="104.0" mnemonicParsing="false" onAction="#pressChoose" prefHeight="25.0" prefWidth="89.0" text="Fájl kiválaszt" />
                      </children></AnchorPane>
               </content>
@@ -107,7 +107,7 @@
                               <Font size="14.0" />
                            </font></Button>
                         <TextField fx:id="katfield" layoutX="248.0" layoutY="100.0" prefHeight="25.0" prefWidth="422.0" />
-                        <Button layoutX="787.0" layoutY="100.0" mnemonicParsing="false" onAction="#presskathozaad" text="Kategória hozááadása...">
+                        <Button layoutX="787.0" layoutY="100.0" mnemonicParsing="false" onAction="#presskathozaad" prefHeight="30.0" prefWidth="165.0" text="Kategória hozááadása...">
                             <font>
                                 <Font size="14.0" />
                             </font></Button>
