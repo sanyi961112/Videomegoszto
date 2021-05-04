@@ -21,7 +21,7 @@ public class Main extends Application {
         //alap bejelentkezes meg regisztracio scene
         if (isLoggedIn == false) {
             Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-            primaryStage.setTitle("Juhturo 0.1");
+            primaryStage.setTitle("Juhturo 0.2");
             root.getStylesheets().add(getClass().getResource("./media/stylesheet.css").toExternalForm());
             primaryStage.setScene(new Scene(root, 900, 500));
             primaryStage.show();
@@ -31,7 +31,7 @@ public class Main extends Application {
         // most ha ez ifen kívül van akkor ez a scene lesz a fő scene
         else {
             Parent kezdolap = FXMLLoader.load(getClass().getResource("kezdolap.fxml"));
-            primaryStage.setTitle("Juhturo 0.1");
+            primaryStage.setTitle("Juhturo 0.2");
             kezdolap.getStylesheets().add(getClass().getResource("./media/stylesheet.css").toExternalForm());
             primaryStage.setScene(new Scene(kezdolap, 1024, 768));
             primaryStage.show();

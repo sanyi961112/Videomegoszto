@@ -87,7 +87,9 @@ public class Controller extends Main{
         System.out.println("Belépés...");
 
         ArrayList<Felhasznalok> felhasznalok = db.read();
-
+// MessageDigest md = MessageDigest.getInstance("SHA-256");
+//            byte[] encodedHash = md.digest(Bjelszo.getText().getBytes(StandardCharsets.UTF_8));
+//            String hashedJelszo = encodedHash.toString();
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] encodedHash = digest.digest(Bjelszo.getText().getBytes(StandardCharsets.UTF_8));
         String hashedJelszo = new String(encodedHash);

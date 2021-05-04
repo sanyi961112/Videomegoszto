@@ -36,12 +36,12 @@ public class KezdolapController extends Controller {
     @FXML
     private TextArea cimke;
     @FXML
+    private ListView myListView;
+    @FXML
     private TextField asd;
 
     @FXML
     private TextField katfield;
-    @FXML
-    private ListView<Blob> myListView;
     @FXML
     private ComboBox vidComboBox;
     @FXML
@@ -50,7 +50,7 @@ public class KezdolapController extends Controller {
     private TextField mycim;
     @FXML
     private TextArea myleiras;
-
+    ListView<String> listView;
     long time =System.currentTimeMillis();
     java.sql.Date d =new java.sql.Date(time);
     @FXML
@@ -71,6 +71,13 @@ public class KezdolapController extends Controller {
             vidComboBox.getItems().add(feltolt.getKategoria_nev());
             vidComboBoxDel.getItems().add(feltolt.getKategoria_nev());
         }
+        myListView.getItems().clear();
+        ArrayList<Video> videos = db.videoread();
+        for (Video video: videos)
+        {
+            myListView.getItems().add(video.getCim());
+        }
+
         //tv1.getColumns().addAll(fh_nevCollum, jelszoCollum, teljes_nevCollum, emailCollum);
 //     System.out.println("asd");
     }
@@ -200,26 +207,54 @@ public void pressVideoUpload(ActionEvent e){
             asd.getText(),
             vidComboBox.getValue().toString());
     db.insertvideo(video);
+    myListView.getItems().clear();
+
     System.out.println(mycim.getText()+" "+myleiras.getText());
     Video video2=null;
+    int max=0;
+    ArrayList<Video> videos1 = db.videoread();
      for (Video video1: videos)
      {
-         video2=video1;
-     }
-     int kiíras = 0;
-     if (video2.getVideo_id().equals(null))
-     {
-         kiíras=1;
-     }
-     else
-     {
-         kiíras=video2.getVideo_id()+1;
+
+         if (video1.getVideo_id()>max)
+         {
+             max=video1.getVideo_id();
+         }
      }
         Cimkek cimkek = new Cimkek(
-                kiíras,
+                max+1,
                 cimke.getText()
         );
         db.insertcimke(cimkek);
 
+    ArrayList<Video> videos4 = db.videoread();
+    for (Video video3: videos4)
+    {
+        myListView.getItems().add(video3.getCim());
+    }
 }
+    public void pressVidDel(ActionEvent e) {
+
+        String a =myListView.getSelectionModel().getSelectedItems().toString();
+        int b = a.length();
+
+        ArrayList<Video> videos = db.videoread();
+        for (Video video : videos)
+        {
+            System.out.println(video.getCim()+" aaaaaa "+a.subSequence(1,b-1));
+            if (video.getCim().equals(a.subSequence(1,b-1)))
+            {
+                db.viddelete(video);
+                break;
+            }
+
+        }
+
+        myListView.getItems().clear();
+        ArrayList<Video> videos4 = db.videoread();
+        for (Video video3: videos4)
+        {
+            myListView.getItems().add(video3.getCim());
+        }
+    }
 }

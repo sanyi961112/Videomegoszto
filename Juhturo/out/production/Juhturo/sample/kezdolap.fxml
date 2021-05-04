@@ -93,8 +93,9 @@
                         <Label layoutX="626.0" layoutY="391.0" text="Kategória" />
                         <TextArea fx:id="cimke" layoutX="628.0" layoutY="463.0" prefHeight="47.0" prefWidth="278.0" />
                         <ComboBox fx:id="vidComboBox" layoutX="628.0" layoutY="414.0" prefHeight="25.0" prefWidth="279.0" />
-                         <ListView layoutX="75.0" layoutY="75.0" prefHeight="519.0" prefWidth="424.0" />
+                         <ListView fx:id="myListView" layoutX="75.0" layoutY="75.0" prefHeight="379.0" prefWidth="424.0" />
                         <Button layoutX="819.0" layoutY="104.0" mnemonicParsing="false" onAction="#pressChoose" prefHeight="25.0" prefWidth="89.0" text="Fájl kiválaszt" />
+                        <Button layoutX="225.0" layoutY="542.0" mnemonicParsing="false" onAction="#pressVidDel" prefHeight="25.0" prefWidth="136.0" text="Videó Törlése" />
                      </children></AnchorPane>
               </content>
           </Tab>

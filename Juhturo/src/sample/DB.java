@@ -194,4 +194,16 @@ public class DB extends Main{
         }
         return true;
     }
+    public boolean viddelete(Video v){
+        try{
+            Connection conn = ods.getConnection(user, pass);
+            statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "delete from VIDEO where CIM = '" + v.getCim()+"'";
+            resultSet = statement.executeQuery( sql );
+        } catch ( Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }
