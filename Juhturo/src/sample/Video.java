@@ -48,6 +48,7 @@ public class Video {
     public String getForras_fajl() {
         return forras_fajl;
     }
+
     public String getKategoria() {
         return kategoria;
     }

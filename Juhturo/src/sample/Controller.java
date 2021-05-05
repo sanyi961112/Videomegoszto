@@ -1,21 +1,20 @@
 package sample;
 
-
-import com.sun.org.apache.xpath.internal.compiler.FuncLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -24,8 +23,8 @@ import java.util.ArrayList;
 
 public class Controller extends Main{
 
-    @FXML
-    private TableView tv1;
+//    @FXML
+//    private TableView tv1;
     @FXML
     private TextField Rfelhasznalo;
     @FXML
@@ -62,17 +61,16 @@ public class Controller extends Main{
      emailCollum.setCellFactory(new PropertyValueFactory<>("email"));
 
      //tv1.getColumns().addAll(fh_nevCollum, jelszoCollum, teljes_nevCollum, emailCollum);
-//     System.out.println("asd");
  }
 
-    public void pressRead(ActionEvent e) {
-        System.out.println("Reading all data...");
-        ArrayList<Felhasznalok> felhasznalok = db.read();
-        tv1.getItems().clear();
-        for (Felhasznalok employee : felhasznalok){
-            tv1.getItems().add(employee);
-        }
-    }
+//    public void pressRead(ActionEvent e) {
+//        System.out.println("Reading all data...");
+//        ArrayList<Felhasznalok> felhasznalok = db.read();
+//        tv1.getItems().clear();
+//        for (Felhasznalok employee : felhasznalok){
+//            tv1.getItems().add(employee);
+//        }
+//    }
 
     public void pressReg(ActionEvent e) {
         System.out.println("Registration...");
@@ -127,7 +125,7 @@ public class Controller extends Main{
                 System.out.println(isLoggedIn);
 
 
-                System.out.println(nev+" Itt a neved");
+//                System.out.println(nev+" Itt a neved");
                 //label_username.setText(nev);
 
                 break;
@@ -135,9 +133,16 @@ public class Controller extends Main{
          else
          {
              nope.textProperty().set("Belépési adatok nem megfelelőek");    //Blank Label
-             System.out.println(employee.getFh_nev()+"-"+Bfelhasznalo.getText());
-             System.out.println(hashedJelszo+"----------"+employee.getJelszo());
+//             System.out.println(employee.getFh_nev()+"-"+Bfelhasznalo.getText());
+//             System.out.println(hashedJelszo+"----------"+employee.getJelszo());
              }
           }
         }
+
+    public void playVideo(ActionEvent e){
+
+    }
+
+
+
 }
