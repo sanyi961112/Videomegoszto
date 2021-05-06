@@ -72,7 +72,7 @@
                         <Label text="Teljes név" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                         <Label text="E-mail:" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                         <TextField fx:id="Rfelhasznalo" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" />
-                        <TextField fx:id="Rjelszo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <PasswordField fx:id="Rjelszo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="Rteljes_nev" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="Remail" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
