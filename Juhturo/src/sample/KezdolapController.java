@@ -50,16 +50,18 @@ public class KezdolapController extends Controller {
     @FXML
     Label label_username;
     @FXML
-    Label valassz;
-    @FXML
     Label label_username1;
+
+    @FXML
+    private TabPane tabpane;
     @FXML
     private TextArea cimke;
+    @FXML
+    private Label valassz;
     @FXML
     private ListView myListView;
     @FXML
     private TextField asd;
-
     @FXML
     private TextField katfield;
     @FXML
@@ -68,36 +70,27 @@ public class KezdolapController extends Controller {
     private ComboBox vidComboBoxDel;
     @FXML
     private TextField mycim;
-    @FXML
-    private TextArea myleiras;
+
     @FXML
     private VBox vboxParent;
     @FXML
     private MediaView mvVideo;
     private MediaPlayer mpVideo;
     private Media mediaVideo;
-    @FXML
-    private TabPane tabpane;
+
+
     @FXML
     private HBox hBoxControls;
-
     @FXML
     private HBox hboxVolume;
     @FXML
-    private Tab tab_vid;
+    private Button buttonPPR;
     @FXML
     private Label labelCurrentTime;
     @FXML
     private Label labelTotalTime;
-
-    @FXML
-    private Button buttonPPR;
-
     @FXML
     private Label labelFullScreen;
-
-
-    ListView<String> listView;
     @FXML
     private Label labelSpeed;
     @FXML
@@ -105,9 +98,11 @@ public class KezdolapController extends Controller {
     @FXML
     private Slider sliderVolume;
     @FXML
+    private Tab tab_vid;
+    @FXML
     private Slider sliderTime;
-    long time =System.currentTimeMillis();
-    java.sql.Date d =new java.sql.Date(time);
+
+    // Checks if the video is at the end.
     private boolean atEndOfVideo = false;
     // Video is not playing when GUI starts.
     private boolean isPlaying = true;
@@ -122,7 +117,11 @@ public class KezdolapController extends Controller {
     private ImageView ivFullScreen;
     private ImageView ivMute;
     private ImageView ivExit;
-
+    @FXML
+    private TextArea myleiras;
+    ListView<String> listView;
+    long time =System.currentTimeMillis();
+    java.sql.Date d =new java.sql.Date(time);
     @FXML
     public void initialize() {
 
@@ -151,12 +150,30 @@ public class KezdolapController extends Controller {
         //tv1.getColumns().addAll(fh_nevCollum, jelszoCollum, teljes_nevCollum, emailCollum);
 //     System.out.println("asd");
 
-        // To create a media player you need to implement the structure of the 3 nested media objects,
-        // media, media player, and media view.
-        // The media player wraps the media and the media view wraps the media player.
 
 
     }
+    public String getTime(Duration time) {
+
+        int hours = (int) time.toHours();
+        int minutes = (int) time.toMinutes();
+        int seconds = (int) time.toSeconds();
+
+        // Fix the issue with the timer going to 61 and above for seconds, minutes, and hours.
+        if (seconds > 59) seconds = seconds % 60;
+        if (minutes > 59) minutes = minutes % 60;
+        if (hours > 59) hours = hours % 60;
+
+        // Don't show the hours unless the video has been playing for an hour or longer.
+        if (hours > 0) return String.format("%d:%02d:%02d",
+                hours,
+                minutes,
+                seconds);
+        else return String.format("%02d:%02d",
+                minutes,
+                seconds);
+    }
+
     public void labelsMatchEndVideo(String labelTime, String labelTotalTime) {
         for (int i = 0; i < labelTotalTime.length(); i++) {
             if (labelTime.charAt(i) != labelTotalTime.charAt(i)) {
@@ -182,26 +199,6 @@ public class KezdolapController extends Controller {
                 return getTime(mpVideo.getCurrentTime()) + " / ";
             }
         }, mpVideo.currentTimeProperty()));
-    }
-    public String getTime(Duration time) {
-
-        int hours = (int) time.toHours();
-        int minutes = (int) time.toMinutes();
-        int seconds = (int) time.toSeconds();
-
-        // Fix the issue with the timer going to 61 and above for seconds, minutes, and hours.
-        if (seconds > 59) seconds = seconds % 60;
-        if (minutes > 59) minutes = minutes % 60;
-        if (hours > 59) hours = hours % 60;
-
-        // Don't show the hours unless the video has been playing for an hour or longer.
-        if (hours > 0) return String.format("%d:%02d:%02d",
-                hours,
-                minutes,
-                seconds);
-        else return String.format("%02d:%02d",
-                minutes,
-                seconds);
     }
     public void display(String username) {
 
@@ -379,31 +376,29 @@ public void pressVideoUpload(ActionEvent e){
         }
     }
     public void pressSelectVideo(ActionEvent e) {
-        
-        
-        String kijeloltvideo =myListView.getSelectionModel().getSelectedItems().toString();
-        kijeloltvideo=kijeloltvideo.substring(1,kijeloltvideo.length()-1);
-        String kijelöltURL = "";
+        String a =myListView.getSelectionModel().getSelectedItems().toString();
+        int b = a.length();
+        String videoURL="";
         ArrayList<Video> videos = db.videoread();
         for (Video video : videos)
         {
-            if (video.getCim().equals(kijeloltvideo))
+            if (video.getCim().equals(a.subSequence(1,b-1)))
             {
-                kijelöltURL=video.getForras_fajl();
-                break;
+                videoURL=video.getForras_fajl();
             }
-            System.out.println(video.getCim()+" "+kijeloltvideo);
         }
-
-        if (myListView.getSelectionModel().getSelectedItem()!=null) {
+        if (myListView.getSelectionModel().getSelectedItem()!=null)
+        {
             tabpane.getSelectionModel().select(tab_vid);
-            mediaVideo = new Media(new File(kijelöltURL).toURI().toString());
+            // To create a media player you need to implement the structure of the 3 nested media objects,
+            // media, media player, and media view.
+            // The media player wraps the media and the media view wraps the media player.
+            mediaVideo = new Media(new File(videoURL).toURI().toString());
             mpVideo = new MediaPlayer(mediaVideo);
             mvVideo.setMediaPlayer(mpVideo);
 
             // Get the paths of the images and make them into images.
             Image imagePlay = new Image(new File("src/sample/media/play-btn.png").toURI().toString());
-            // file:/D:/wittcode-2/java-2/send-video-client/src/resources/play-btn.png
             ivPlay = new ImageView(imagePlay);
             ivPlay.setFitWidth(35);
             ivPlay.setFitHeight(35);
@@ -693,12 +688,11 @@ public void pressVideoUpload(ActionEvent e){
                     }
                 }
             });
+
         }
-        else
-        {
+        else {
             valassz.setText("Válassz videót");
         }
 
     }
-
 }

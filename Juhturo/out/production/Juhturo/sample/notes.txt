@@ -33,6 +33,7 @@ CREATE TABLE FELHASZNALOK (
 	feltoltes_datuma DATE NOT NULL,
 	feltolto VARCHAR2(30) NOT NULL,
 	forras_fajl VARCHAR(80) NOT NULL,
+	kategoria VARCHAR(100) NOT NULL,
 	megtekintes NUMBER,
 	PRIMARY KEY(video_id),
 	FOREIGN KEY(feltolto) REFERENCES felhasznalok(fh_nev)
