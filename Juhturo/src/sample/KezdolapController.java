@@ -146,13 +146,8 @@ public class KezdolapController extends Controller {
         {
             myListView.getItems().add(video.getCim());
         }
-
-        //tv1.getColumns().addAll(fh_nevCollum, jelszoCollum, teljes_nevCollum, emailCollum);
-//     System.out.println("asd");
-
-
-
     }
+
     public String getTime(Duration time) {
 
         int hours = (int) time.toHours();
@@ -266,7 +261,7 @@ public class KezdolapController extends Controller {
         System.out.println("Deleting...");
         ArrayList<Felhasznalok> felhasznalok = db.read();
         for (Felhasznalok employee : felhasznalok) {
-            System.out.println(label_username.getText() + " cuccizé " + employee.getFh_nev());
+//            System.out.println(label_username.getText() + " cuccizé " + employee.getFh_nev());
             if (employee.getFh_nev().equals(label_username.getText())) {
                 db.delete(employee);
                 break;

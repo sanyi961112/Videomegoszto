@@ -14,8 +14,8 @@ public class DB extends Main{
     private ResultSet resultSet;
     private Statement statement;
     private OracleDataSource ods;
-    private String user = "geri";
-    private String pass = "123456";
+    private String user = "sanyi";
+    private String pass = "oracle";
     long time =System.currentTimeMillis();
     java.sql.Date d =new java.sql.Date(time);
     public static Integer parseInt(String s) {

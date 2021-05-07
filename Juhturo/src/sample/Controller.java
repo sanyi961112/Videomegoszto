@@ -103,9 +103,6 @@ public class Controller extends Main{
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[] hashed = md.digest(Bjelszo.getText().getBytes(StandardCharsets.UTF_8));
         String hashedJelszo = bytesToHex(hashed);
-//        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-//        byte[] encodedHash = digest.digest(Bjelszo.getText().getBytes(StandardCharsets.UTF_8));
-//        String hashedJelszo = new String(encodedHash);
 
         for (Felhasznalok employee : felhasznalok) {
 
@@ -122,12 +119,7 @@ public class Controller extends Main{
                 stage.setScene(scene);
                 stage.show();
                 nev=employee.getFh_nev();
-                System.out.println(isLoggedIn);
-
-
-//                System.out.println(nev+" Itt a neved");
-                //label_username.setText(nev);
-
+                System.out.println("belépve:"+isLoggedIn);
                 break;
             }
          else
@@ -139,7 +131,7 @@ public class Controller extends Main{
           }
         }
 
-    public void playVideo(ActionEvent e){
+    public void pressComment(ActionEvent e){
 
     }
 
