@@ -131,10 +131,4 @@ public class Controller extends Main{
           }
         }
 
-    public void pressComment(ActionEvent e){
-
-    }
-
-
-
 }

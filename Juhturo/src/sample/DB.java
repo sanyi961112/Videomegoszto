@@ -177,7 +177,7 @@ public class DB extends Main{
      return true;
  }
  public ArrayList<Video> videoread(){
-     ArrayList<Video> videos = new ArrayList<Video>();
+     ArrayList<Video> videos = new ArrayList<>();
      try{
          Connection conn = ods.getConnection(user, pass);
          statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -186,7 +186,8 @@ public class DB extends Main{
          while (resultSet.next()){
              Video v = new Video(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getDate(4),resultSet.getString(5),resultSet.getString(6),resultSet.getString(7));
              videos.add(v);
-             System.out.println(v.getCim());
+
+//             System.out.println(v.getCim());
          }
      } catch (Exception e) {
          e.printStackTrace();
@@ -212,6 +213,21 @@ public class DB extends Main{
             Connection conn = ods.getConnection(user, pass);
             statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String sql = "delete from VIDEO where CIM = '" + v.getCim()+"'";
+            resultSet = statement.executeQuery( sql );
+        } catch ( Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean insertKomment(Komment k){
+        try{
+            //insert komment
+            Connection conn = ods.getConnection(user, pass);
+            statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "INSERT INTO KOMMENTEK (VIDEO_ID, CIMKE_NEV) VALUES ('"+k.getVideo_id().toString()+"', '"+k.getFh_nev()+"', '"+k.getIdopont()+"', '"+k.getKomment()+"')";
+            System.out.println(sql);
             resultSet = statement.executeQuery( sql );
         } catch ( Exception ex){
             ex.printStackTrace();

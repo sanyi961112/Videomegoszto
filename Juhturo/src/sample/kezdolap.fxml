@@ -53,11 +53,14 @@
                           <Label layoutX="405.0" layoutY="422.0" text="Megtekintés:" />
                           <Label layoutX="405.0" layoutY="404.0" text="Feltöltve:" />
                           <Label layoutX="489.0" layoutY="404.0" prefHeight="17.0" prefWidth="131.0" text="Video.feltoltes_datuma" />
-                          <Label layoutX="750.0" layoutY="55.0" prefHeight="17.0" prefWidth="85.0" text="Ajánlott videók" />
-                          <TableView layoutX="750.0" layoutY="78.0" prefHeight="503.0" prefWidth="200.0" />
+                          <Label layoutX="794.0" layoutY="28.0" prefHeight="20.0" prefWidth="122.0" text="Ajánlott videók">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
+                          <TableView layoutX="719.0" layoutY="52.0" prefHeight="544.0" prefWidth="249.0" />
                         <Label layoutX="58.0" layoutY="422.0" prefHeight="17.0" prefWidth="45.0" text="x" />
-                        <Label layoutX="113.0" layoutY="422.0" text="Hozzászólás" />
-                        <ListView fx:id="video_comment_list" layoutX="55.0" layoutY="447.0" prefHeight="130.0" prefWidth="582.0" />
+                        <Label layoutX="143.0" layoutY="422.0" text="Hozzászólás" />
+                        <ListView fx:id="comment_list" layoutX="55.0" layoutY="447.0" prefHeight="130.0" prefWidth="582.0" />
                         <Pane fx:id="mvVideo1" layoutX="37.0" layoutY="14.0" prefHeight="314.0" prefWidth="614.0">
                            <children>
                               <VBox fx:id="vboxParent" alignment="CENTER" layoutX="7.0" layoutY="14.0" prefHeight="300.0" prefWidth="609.0">
@@ -128,11 +131,11 @@
                                   </HBox></VBox>
                            </children>
                         </Pane>
-                        <TextField layoutX="55.0" layoutY="576.0" prefHeight="30.0" prefWidth="416.0">
+                        <TextField fx:id="comment" layoutX="55.0" layoutY="576.0" prefHeight="30.0" prefWidth="416.0">
                            <font>
                               <Font size="13.0" />
                            </font></TextField>
-                        <Button fx:id="send_comment" layoutX="471.0" layoutY="576.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="166.0" text="Hozzászólok">
+                        <Button fx:id="sendComment" layoutX="471.0" layoutY="576.0" mnemonicParsing="false" onAction="#pressComment" prefHeight="29.0" prefWidth="166.0" text="Hozzászólok">
                            <font>
                               <Font size="13.0" />
                            </font></Button>
@@ -153,27 +156,27 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="625.0" layoutY="80.0" text="Videófájl kiválasztása" />
-                        <TextField fx:id="asd" layoutX="625.0" layoutY="104.0" prefHeight="25.0" prefWidth="172.0" />
-                        <TextField fx:id="mycim" layoutX="625.0" layoutY="175.0" prefHeight="25.0" prefWidth="283.0" />
-                        <Label layoutX="625.0" layoutY="150.0" prefHeight="17.0" prefWidth="134.0" text="Videó címe" />
-                        <Label layoutX="626.0" layoutY="446.0" text="Címkék" />
-                        <TextArea fx:id="myleiras" layoutX="626.0" layoutY="244.0" prefHeight="140.0" prefWidth="283.0" />
-                        <Button layoutX="635.0" layoutY="539.0" mnemonicParsing="false" onAction="#pressVideoUpload" prefHeight="25.0" prefWidth="266.0" text="Videó feltöltése">
+                        <Label layoutX="583.0" layoutY="75.0" prefHeight="17.0" prefWidth="146.0" text="Videófájl kiválasztása" />
+                        <TextField fx:id="asd" layoutX="583.0" layoutY="129.0" prefHeight="25.0" prefWidth="324.0" />
+                        <TextField fx:id="mycim" layoutX="583.0" layoutY="184.0" prefHeight="25.0" prefWidth="325.0" />
+                        <Label layoutX="586.0" layoutY="167.0" prefHeight="17.0" prefWidth="171.0" text="Videó címe" />
+                        <Label layoutX="587.0" layoutY="446.0" text="Címkék" />
+                        <TextArea fx:id="myleiras" layoutX="587.0" layoutY="244.0" prefHeight="140.0" prefWidth="319.0" />
+                        <Button layoutX="587.0" layoutY="539.0" mnemonicParsing="false" onAction="#pressVideoUpload" prefHeight="30.0" prefWidth="318.0" text="Videó feltöltése">
                            <font>
                               <Font size="14.0" />
                            </font></Button>
-                        <Label layoutX="625.0" layoutY="218.0" prefHeight="17.0" prefWidth="85.0" text="Leírás" />
-                        <Label layoutX="626.0" layoutY="391.0" text="Kategória" />
-                        <TextArea fx:id="cimke" layoutX="628.0" layoutY="463.0" prefHeight="47.0" prefWidth="278.0" />
-                        <ComboBox fx:id="vidComboBox" layoutX="628.0" layoutY="414.0" prefHeight="25.0" prefWidth="279.0" />
-                         <ListView fx:id="myListView" layoutX="75.0" layoutY="75.0" prefHeight="379.0" prefWidth="424.0" />
-                        <Button layoutX="819.0" layoutY="104.0" mnemonicParsing="false" onAction="#pressChoose" prefHeight="25.0" prefWidth="89.0" text="Fájl kiválaszt" />
-                        <Button layoutX="363.0" layoutY="492.0" mnemonicParsing="false" onAction="#pressVidDel" prefHeight="25.0" prefWidth="136.0" text="Videó Törlése">
+                        <Label layoutX="586.0" layoutY="218.0" prefHeight="17.0" prefWidth="85.0" text="Leírás" />
+                        <Label layoutX="588.0" layoutY="391.0" text="Kategória" />
+                        <TextArea fx:id="cimke" layoutX="586.0" layoutY="463.0" prefHeight="47.0" prefWidth="320.0" />
+                        <ComboBox fx:id="vidComboBox" layoutX="590.0" layoutY="414.0" prefHeight="25.0" prefWidth="316.0" />
+                         <ListView fx:id="myListView" layoutX="75.0" layoutY="75.0" prefHeight="435.0" prefWidth="424.0" />
+                        <Button fx:id="chooseFile" layoutX="584.0" layoutY="104.0" mnemonicParsing="false" onAction="#pressChoose" prefHeight="25.0" prefWidth="322.0" text="Fájlt kiválaszt" />
+                        <Button layoutX="363.0" layoutY="540.0" mnemonicParsing="false" onAction="#pressVidDel" prefHeight="25.0" prefWidth="136.0" text="Videó Törlése">
                            <font>
                               <Font size="14.0" />
                            </font></Button>
-                        <Button layoutX="75.0" layoutY="489.0" mnemonicParsing="false" onAction="#pressSelectVideo" prefHeight="25.0" prefWidth="136.0" text="Videó Betöltése">
+                        <Button layoutX="75.0" layoutY="539.0" mnemonicParsing="false" onAction="#pressSelectVideo" prefHeight="25.0" prefWidth="136.0" text="Videó Betöltése">
                            <font>
                               <Font size="14.0" />
                            </font></Button>
@@ -193,7 +196,7 @@
                            <font>
                               <Font size="14.0" />
                            </font></Button>
-                        <TextField fx:id="katfield" layoutX="46.0" layoutY="100.0" prefHeight="30.0" prefWidth="624.0">
+                        <TextField fx:id="katfield" layoutX="200.0" layoutY="98.0" prefHeight="30.0" prefWidth="587.0">
                            <font>
                               <Font size="14.0" />
                            </font></TextField>
@@ -209,8 +212,8 @@
                            <font>
                               <Font size="18.0" />
                            </font></Label>
-                        <ComboBox fx:id="vidComboBoxDel" layoutX="48.0" layoutY="212.0" prefHeight="30.0" prefWidth="623.0" />
-                        <Button layoutX="788.0" layoutY="205.0" mnemonicParsing="false" onAction="#kategDel" prefHeight="25.0" prefWidth="163.0" text="Kategória Törlése">
+                        <ComboBox fx:id="vidComboBoxDel" layoutX="202.0" layoutY="212.0" prefHeight="30.0" prefWidth="587.0" />
+                        <Button layoutX="789.0" layoutY="212.0" mnemonicParsing="false" onAction="#kategDel" prefHeight="25.0" prefWidth="163.0" text="Kategória Törlése">
                            <font>
                               <Font size="14.0" />
                            </font></Button>
