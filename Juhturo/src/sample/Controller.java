@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,12 +20,15 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 public class Controller extends Main{
 
 //    @FXML
 //    private TableView tv1;
+    @FXML
+    private Label regisztralLabel;
     @FXML
     private TextField Rfelhasznalo;
     @FXML
@@ -34,7 +38,7 @@ public class Controller extends Main{
     @FXML
     private TextField Remail;
     @FXML
-    private TextField Bfelhasznalo;
+    TextField Bfelhasznalo;
     @FXML
     private TextField Bjelszo;
     @FXML
@@ -74,12 +78,21 @@ public class Controller extends Main{
 
     public void pressReg(ActionEvent e) {
         System.out.println("Registration...");
-        Felhasznalok felhasznalok = new Felhasznalok(
-                Rfelhasznalo.getText(),
-                Rjelszo.getText(),
-                Rteljes_nev.getText(),
-                Remail.getText());
-        db.insert(felhasznalok);
+        try {
+            Felhasznalok felhasznalok = new Felhasznalok(
+                    Rfelhasznalo.getText(),
+                    Rjelszo.getText(),
+                    Rteljes_nev.getText(),
+                    Remail.getText());
+            db.insert(felhasznalok);
+            regisztralLabel.setText("Sikeres Regisztrálás");
+        }catch (Exception f)
+        {
+            regisztralLabel.setText("Sikertelen Regisztrálás");
+
+        }
+
+
     }
 
 

@@ -7,6 +7,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,6 +55,8 @@ public class KezdolapController extends Controller {
     @FXML
     Label label_username;
     @FXML
+    private Label feltoltesdatuma;
+    @FXML
     Label label_username1;
 
     @FXML
@@ -68,6 +71,8 @@ public class KezdolapController extends Controller {
     private TextField asd;
     @FXML
     private TextField katfield;
+    @FXML
+    private Label videocimlabel;
     @FXML
     private ComboBox vidComboBox;
     @FXML
@@ -100,6 +105,8 @@ public class KezdolapController extends Controller {
     private Slider sliderVolume;
     @FXML
     private Tab tab_vid;
+    @FXML
+    private ListView ALLListView;
     @FXML
     private Slider sliderTime;
 
@@ -141,12 +148,14 @@ public class KezdolapController extends Controller {
             vidComboBox.getItems().add(feltolt.getKategoria_nev());
             vidComboBoxDel.getItems().add(feltolt.getKategoria_nev());
         }
-        myListView.getItems().clear();
+
+        ALLListView.getItems().clear();
         ArrayList<Video> videos = db.videoread();
         for (Video video: videos)
         {
-            myListView.getItems().add(video.getCim());
+            ALLListView.getItems().add(video.getCim());
         }
+
     }
 
     public String getTime(Duration time) {
@@ -352,7 +361,7 @@ public void pressVideoUpload(ActionEvent e){
          }
      }
         Cimkek cimkek = new Cimkek(
-                max+1,
+                max,
                 cimke.getText()
         );
         db.insertcimke(cimkek);
@@ -360,8 +369,31 @@ public void pressVideoUpload(ActionEvent e){
     ArrayList<Video> videos4 = db.videoread();
     for (Video video3: videos4)
     {
-        myListView.getItems().add(video3.getCim());
+        if (video.getFeltolto().equals(label_username.getText()))
+        {
+            myListView.getItems().add(video3.getCim());
+        }
+
     }
+
+    ArrayList<VIDEOMEGOSZTOK> videomegosztoks = db.readVideoMegosztok();
+    int szamlalo=0;
+    for (VIDEOMEGOSZTOK vid: videomegosztoks)
+    {
+        if (vid.getFh_nev().equals(label_username.getText()))
+        {
+            //db.videomegosztokupdate(vid);
+            szamlalo++;
+            break;
+        }
+
+    }
+    if (szamlalo==0)
+    {
+        VIDEOMEGOSZTOK asd= new VIDEOMEGOSZTOK(label_username.getText(),1);
+        db.insertVideoMegosztok(asd);
+    }
+szamlalo=0;
 }
 
     public void pressVidDel(ActionEvent e) {
@@ -385,22 +417,32 @@ public void pressVideoUpload(ActionEvent e){
         ArrayList<Video> videos4 = db.videoread();
         for (Video video3: videos4)
         {
-            myListView.getItems().add(video3.getCim());
+
+            if (video3.getFeltolto().equals(label_username.getText())) {
+                myListView.getItems().add(video3.getCim());
+            }
         }
     }
     public void pressSelectVideo(ActionEvent e) {
         String a =myListView.getSelectionModel().getSelectedItems().toString();
+        String c =ALLListView.getSelectionModel().getSelectedItems().toString();
         int b = a.length();
+        int d = c.length();
+
         String videoURL="";
+        String cim="";
         ArrayList<Video> videos = db.videoread();
         for (Video video : videos)
         {
-            if (video.getCim().equals(a.subSequence(1,b-1)))
+            if (video.getCim().equals(a.subSequence(1,b-1)) || video.getCim().equals(c.subSequence(1,d-1)))
             {
                 videoURL=video.getForras_fajl();
+                cim=video.getCim().toString();
+                feltoltesdatuma.setText(video.getFeltoltes_datuma().toString());
+                break;
             }
         }
-        if (myListView.getSelectionModel().getSelectedItem()!=null)
+        if (myListView.getSelectionModel().getSelectedItem()!=null || ALLListView.getSelectionModel().getSelectedItem()!=null)
         {
             tabpane.getSelectionModel().select(tab_vid);
             mediaVideo = new Media(new File(videoURL).toURI().toString());
@@ -446,6 +488,8 @@ public void pressVideoUpload(ActionEvent e){
             labelVolume.setGraphic(ivMute);
             labelSpeed.setText("1X");
             labelFullScreen.setGraphic(ivFullScreen);
+
+
 
             hboxVolume.getChildren().remove(sliderVolume);
 
@@ -556,6 +600,7 @@ public void pressVideoUpload(ActionEvent e){
                     Label label = (Label) mouseEvent.getSource();
                     Stage stage = (Stage) label.getScene().getWindow();
 
+
                     if (stage.isFullScreen()) {
                         stage.setFullScreen(false);
                         labelFullScreen.setGraphic(ivFullScreen);
@@ -635,6 +680,19 @@ public void pressVideoUpload(ActionEvent e){
         else {
             valassz.setText("Válassz videót");
         }
+        videocimlabel.setText(cim);
+    }
 
+    public void pressSelectVideoim(Event event) {
+        myListView.getItems().clear();
+            ArrayList<Video> videos = db.videoread();
+            for (Video video: videos)
+            {
+                if (video.getFeltolto().equals(label_username.getText()))
+                {
+                    myListView.getItems().add(video.getCim());
+                }
+                System.out.println(video.getFeltolto()+"nyomorék"+label_username.getText());
+            }
     }
 }

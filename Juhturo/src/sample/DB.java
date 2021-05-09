@@ -14,8 +14,8 @@ public class DB extends Main{
     private ResultSet resultSet;
     private Statement statement;
     private OracleDataSource ods;
-    private String user = "sanyi";
-    private String pass = "oracle";
+    private String user = "geri";
+    private String pass = "123456";
     long time =System.currentTimeMillis();
     java.sql.Date d =new java.sql.Date(time);
     public static Integer parseInt(String s) {
@@ -235,4 +235,51 @@ public class DB extends Main{
         }
         return true;
     }
+    public boolean insertVideoMegosztok(VIDEOMEGOSZTOK v){
+        try{
+
+            Connection conn = ods.getConnection(user, pass);
+            statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "INSERT INTO VIDEOMEGOSZTOK (FH_NEV, FELTOLESEK_SZAMA) VALUES ('"+v.getFh_nev()+"','"+1+"')";
+            System.out.println(sql);
+            resultSet = statement.executeQuery( sql );
+        } catch ( Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<VIDEOMEGOSZTOK> readVideoMegosztok() {
+        ArrayList<VIDEOMEGOSZTOK> videos = new ArrayList<>();
+        try{
+            Connection conn = ods.getConnection(user, pass);
+            statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "select FH_NEV, FELTOLESEK_SZAMA from VIDEOMEGOSZTOK";
+            resultSet = statement.executeQuery( sql );
+            while (resultSet.next()){
+                VIDEOMEGOSZTOK v = new VIDEOMEGOSZTOK(resultSet.getString(1), resultSet.getInt(2));
+                videos.add(v);
+
+//             System.out.println(v.getCim());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return videos;
+    }
+    public boolean videomegosztokupdate(VIDEOMEGOSZTOK videomegosztok){
+        try{
+            Connection conn = ods.getConnection(user, pass);
+            statement = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            String sql = "UPDATE VIDEOMEGOSZTOK SET FELTOLESEK_SZAMA = "+(videomegosztok.getFELTOLESEK_SZAMA()+1);
+            System.out.println(sql);
+            resultSet = statement.executeQuery( sql );
+        } catch ( Exception ex){
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
 }
