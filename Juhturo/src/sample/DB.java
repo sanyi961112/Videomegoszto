@@ -49,7 +49,7 @@ public class DB extends Main{
             while (resultSet.next()){
                 Felhasznalok f = new Felhasznalok(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
                 felhasznalok.add(f);
-                System.out.println(f.getFh_nev()+" - "+f.getJelszo());
+              //  System.out.println(f.getFh_nev()+" - "+f.getJelszo());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,7 +143,7 @@ public class DB extends Main{
             while (resultSet.next()){
                 Kategoriak k = new Kategoriak(resultSet.getString(1));
                 kategoriaks.add(k);
-                System.out.println(k.getKategoria_nev());
+                //System.out.println(k.getKategoria_nev());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -281,5 +281,11 @@ public class DB extends Main{
         }
         return true;
     }
+    public static final String Belepesszamlalo="SELECT COUNT(FELHASZNALO) FROM LOGON Where (SELECT FH_NEV FROM FELHASZNALOK where felhasznalok.fh_nev = logon.felhasznalo)=logon.felhasznalo AND LOGON.CSELEKMENY='belépett'";
+    public static final String Kilepesszamlalo="SELECT COUNT(FELHASZNALO) FROM LOGON Where (SELECT FH_NEV FROM FELHASZNALOK where felhasznalok.fh_nev = logon.felhasznalo)=logon.felhasznalo AND LOGON.CSELEKMENY='kilépett'";
+    public static final String NEVÖSSZEHASOLITO="SELECT COUNT(FELTOLTO) FROM VIDEO Where (SELECT TELJES_NEV FROM FELHASZNALOK where felhasznalok.teljes_nev= video.feltolto)=video.feltolto";
+    public static final String Cusswordusers="SELECT FH_NEV FROM felhasznalok WHERE (SELECT FELTOLTO FROM video WHERE leiras LIKE 'CUSSWORD' or leiras LIKE 'OUTHERCUSSWORD') = felhasznalok.fh_nev";
+    public static final String FURAEMAILVIDEOMEGOSZTOKKOZOTT="SELECT FH_NEV FROM felhasznalok WHERE (SELECT FH_NEV FROM VIDEOMEGOSZTOK WHERE FELHASZNALOK.EMAIL NoT IN '@') = felhasznalok.fh_nev";
+    public static final String Osszesvideo="SELECT SUM(FELTOLESEK_SZAMA) FROM VIDEOMEGOSZTOK WHERE (SELECT FH_NEV FROM FELHASZNALOK ) = videomegosztok.fh_nev";
 
 }

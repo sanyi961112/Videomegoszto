@@ -557,7 +557,6 @@ szamlalo=0;
                         isMuted = false;
                     }
                     else {
-                        // The video is not muted so mute it and change the image.
                         labelVolume.setGraphic(ivMute);
                         sliderVolume.setValue(0);
                         isMuted = true;
